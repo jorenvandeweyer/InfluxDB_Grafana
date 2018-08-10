@@ -3,16 +3,17 @@ services:
     influxdb:
         image: influxdb
         volumes:
-            - ./influxdb:/var/lib/influxdb
+            - ./influxdb/:/var/lib/influxdb/
         ports:
             - '8086:8086'
         networks:
           - dupbit_prime
     grafana:
+        user: "104"
         image: grafana/grafana
         volumes:
-            - ./grafana-storage:/var/lib/grafana
-            - ./secrets:/run/secrets
+            - ./grafana-storage/:/var/lib/grafana/
+            - ./secrets/:/run/secrets/
         environment:
             - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/admin_password_grafana
         depends_on:
